@@ -6,7 +6,8 @@ const ProductosScheme = new Schema({
     title: { type: String, required: true },
     price: { type: Number, required: true },
     thumbnail: { type: String, required: true },
-    quantity: { type: Number, required: true }
+    quantity: { type: Number, required: true },
+    category: { type: String, required: true },
 })
 
 module.exports = ProductosScheme

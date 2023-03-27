@@ -10,7 +10,7 @@ function getRandomProduct(id_articulo) {
   }
 
   const productos = []
-    for (let i = 1; i < 6; i++) {
+    for (let i = 1; i < 10; i++) {
         productos.push(getRandomProduct(i))
     }
     const productosRandom = await productosController.save(productos)

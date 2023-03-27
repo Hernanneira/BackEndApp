@@ -6,6 +6,7 @@
                     <th scope="col">id</th>
                     <th scope="col">Nombre</th>
                     <th scope="col">Precio</th>
+                    <th scope="col">Categoria</th>
                     <th scope="col">Imagen</th>
                     <th scope="col">Agregar/Eliminar al Carrito</th>
                 </tr>
@@ -16,6 +17,7 @@
                         <td> <%= prod.id_articulo %> </td>
                         <td> <%= prod.title %> </td>
                         <td> <%= prod.price %> </td>
+                        <td> <%= prod.category %> </td>
                         <td> <img src="<%= prod.thumbnail %>" alt="<%= prod.title %>" width="25"> </td>
                         <td> <button class="btn btn-outline-success" id="addProduct-<%= prod.id_articulo%>">+</button> <button class="btn btn-outline-danger" id="delProduct-<%= prod.id_articulo%>">-</button></td>
                     </tr>

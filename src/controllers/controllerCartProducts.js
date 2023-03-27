@@ -14,7 +14,7 @@ const controllerCreateCart = async (req, res, next) => {
   const cartProductos = req.body;
   const cartUser = {
     cart: cartProductos,
-    user: req.session.passport.user,
+    user: req.session.token.userName.username,
   };
   const cart = await crearCart(cartUser);
 
@@ -28,7 +28,7 @@ const controllerSendCart = async (req, res, next) => {
     `Se accedio a ${req.baseUrl} con método ${req.method} exitosamente`
   );
   try {
-    const cartProductsUser = await obtenerCart(req.session.passport.user);
+    const cartProductsUser = await obtenerCart(req.session.token.userName.username);
     console.log(cartProductsUser);
     const sendedCart = await enviarCart(cartProductsUser);
     if (sendedCart.length !== 0) {
@@ -48,7 +48,7 @@ const controllerGetCart = async (req, res, next) => {
     logger.info(
       `Se intentó acceder a ${req.baseUrl} con método ${req.method} exitosamente`
     );
-    res.render("cart.ejs", { user: req.session.passport.user });
+    res.render("cart.ejs", { user: req.session.token.userName.username });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Hubo un error en el servidor" });

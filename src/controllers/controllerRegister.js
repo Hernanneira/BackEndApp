@@ -24,6 +24,14 @@ const register = async (req,res) => {
         foto: req.body.foto,
     }
 
+    if(req.body.password !== req.body.passwordR){
+        console.log("Password is not the same")
+        return res.status(401).send({
+            success: false,
+            message: "Password is not the same",
+        })
+    }
+
     const usuariosDB = await UsersDAO.getAll()
 
     const userLogin = usuariosDB.find(u => u.email === user.email)
@@ -33,7 +41,7 @@ const register = async (req,res) => {
         return res.status(401).send({
             success: false,
             message: "email already register",
-          })
+        })
     //nico, redirecciono o que hago
     }
 

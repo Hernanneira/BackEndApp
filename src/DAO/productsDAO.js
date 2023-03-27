@@ -2,6 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const mongoose = require("mongoose");
 
+
 console.log("db mongoose productos INICIADO");
 
 const mongooseProductos = mongoose.createConnection(
@@ -37,7 +38,45 @@ class Pruduct {
       return error;
     }
   }
+  
+  async obtenerDatoId (id) {
+    try {
+      const content = await this.productosDAO.find({"_id": id});
+      return content;
+    } catch (error) {
+      return error;
+    }
+  }
+  
+  async categoria (categoria) {
+    try {
+      const content = await this.productosDAO.find({"category": categoria});
+      return content;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async update (articulo) {
+    try {
+      const content = await this.productosDAO.replaceOne({"id_articulo": articulo.id_articulo}, articulo);
+      return content;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async delete (id) {
+    try {
+      const content = await this.productosDAO.deleteOne({"id_articulo": id});
+      return content;
+    } catch (error) {
+      return error;
+    }
+  }
 }
+
+  
 
 const productosDAO = new Pruduct();
 

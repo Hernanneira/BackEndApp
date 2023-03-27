@@ -18,7 +18,28 @@ async function crearDato(newArticulo) {
   return newContent;
 }
 
+async function filtrarId(id) {
+  return await productosDAO.obtenerDatoId(id);
+}
+
+async function filtrarCategoria(categoria) {
+  return await productosDAO.categoria(categoria);
+}
+
+async function updateDato(articulo) {
+console.log(articulo)
+  return await productosDAO.update(articulo);
+}
+
+async function deleteDato(articulo) {
+  return await productosDAO.delete(articulo);
+}
+
 module.exports = {
   obtenerDatos,
   crearDato,
+  filtrarCategoria,
+  updateDato,
+  deleteDato,
+  filtrarId
 };

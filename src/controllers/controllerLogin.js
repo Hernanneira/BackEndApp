@@ -38,13 +38,14 @@ const loginUser = async (req, res) => {
 
     const userName = {
       username: singleUser.username,
+      email: singleUser.email,
     };
 
     const token = jwt.sign(payload, "secret", options);
 
     req.session.token = { token, userName };
 
-    res.redirect("/api/productos");
+    res.redirect("/productos");
 
     // return res.status(200).send({
     // success: true,
@@ -54,10 +55,10 @@ const loginUser = async (req, res) => {
   });
 };
 
-passport.authenticate("jwt", { session: false }),
-  function (req, res) {
-    res.send(req.user.profile);
-  };
+// passport.authenticate("jwt", { session: false }),
+//   function (req, res) {
+//     res.send(req.user.profile);
+//   };
 
 const getLogin = (req, res) => {
   logger.info(
@@ -67,7 +68,7 @@ const getLogin = (req, res) => {
   try {
     const nombre = req.session?.token?.userName || false;
     if (nombre) {
-      res.redirect("/api/productos");
+      res.redirect("/productos");
     } else {
       console.log("estoy en getLogin");
       res.render("login.ejs");

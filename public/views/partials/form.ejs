@@ -1,15 +1,39 @@
 <h1>Formulario Nuevo Producto</h1>
-    <div class="row g-3">
-        <div class="col">
-            <input type="text" class="form-control" placeholder="Título" name="title" id="title">
-        </div>
-        <div class="col">
-            <input type="text" class="form-control" placeholder="Precio" name="price" id="price">
-        </div>
-        <div class="col">
-            <input type="text" class="form-control" placeholder="thumbnail de la imagen" name="thumbnail" id="thumbnail">
-        </div>
-        <div class="col">
-            <button type="submit" class="btn btn-outline-dark" id="btn">Guardar</button>
-        </div>
+    <div class="form-group">
+      <label for="id">ID:</label>
+      <input type="number" class="form-control" id="id_articulo" name="id">
+    </div>
+    
+    <div class="form-group">
+      <label for="title">Título:</label>
+      <input type="text" class="form-control" id="title" name="title">
+    </div>
+    
+    <div class="form-group">
+      <label for="price">Precio:</label>
+      <input type="number" class="form-control" id="price" name="price">
+    </div>
+    
+    <div class="form-group">
+      <label for="thumbnail">URL de imagen:</label>
+      <input type="text" class="form-control" id="thumbnail" name="thumbnail">
+    </div>
+    
+    <div class="form-group">
+      <label for="category">Categoría:</label>
+      <select class="form-control" id="category" name="category">
+        <option value="fruta">fruta</option>
+        <option value="verdura">verdura</option>
+        <option value="carne">carne</option>
+      </select>
+    </div>
+    
+    <div class="col">
+        <button class="btn btn-outline-dark" id="saveP">Guardar</button>
+    </div>
+    <div class="col">
+        <button class="btn btn-outline-dark" id="editP">Editar</button>
+    </div>
+    <div class="col">
+        <button class="btn btn-outline-dark" id="delP">Borrar</button>
     </div>

@@ -3,7 +3,8 @@ const { normalize, schema, denormalize} = require('normalizr');
 function normalizeAll(getAllMessages) {
   const newGetAllMessages = getAllMessages.map((e) => {
     const allMessagesObject = {
-      nombre: e.nombre,
+      email: e.email,
+      tipo: e.tipo,
       date: e.date,
       text: e.text,
     };

@@ -3,9 +3,11 @@ let cart = [];
 let quantityCart = '';
 //productos
 
-socket.on("productos", listaProductos => {
-    loadProds(listaProductos)
-});
+// socket.on("productos", listaProductos => {
+//     loadProds(listaProductos)
+// });
+
+
 
 async function loadProds(listProd) {
     let htmlProd = ''
@@ -105,16 +107,6 @@ function totalQuantityItems (cart) {
     }
 }
 
-document.getElementById('btn').addEventListener('click', (e) => {
-    e.preventDefault
-    const nuevoProducto = {
-        title: document.getElementById('title').value,
-        price: document.getElementById('price').value,
-        thumbnail: document.getElementById('thumbnail').value
-    }
-
-socket.emit("guardarNuevoProducto",nuevoProducto)
-})
 
 socket.on('messages', function(data) { render(data); });
 

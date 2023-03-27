@@ -11,11 +11,11 @@ router.get('/',(req,res)=>{
             if (!err) { 
                 res.render('logout.ejs', { nombre })
             } else {
-                res.redirect('/api/productos')
+                res.redirect('/productos')
             }
         })
     } else {
-        res.redirect('/api/productos')
+        res.redirect('/productos')
     }
 })
 
