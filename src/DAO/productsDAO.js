@@ -41,7 +41,7 @@ class Pruduct {
   
   async obtenerDatoId (id) {
     try {
-      const content = await this.productosDAO.find({"_id": id});
+      const content = await this.productosDAO.find({"id_articulo": id});
       return content;
     } catch (error) {
       return error;

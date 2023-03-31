@@ -1,57 +1,52 @@
 const socket = io.connect();
 let cart = [];
+let products = []
 let quantityCart = '';
 //productos
 
-// socket.on("productos", listaProductos => {
-//     loadProds(listaProductos)
-// });
+
+fetch('http://localhost:8080/productos/api/v1')
+    .then(response => response.json())
+    .then(data =>{
+        products = data
+        console.log(products)
+        if(products.length > 0) {
+            console.log("estamos")
+            products.forEach(element => {
+                const addProduct = document.getElementById(`addProduct-${element.id_articulo}`)
+    
+                addProduct.addEventListener('click', (e) => {
+                    e.preventDefault
+                    const product = addToCart(element)
+                    console.log('cart',cart)
+                    console.log('producto',product)
+                    if (product.quantity > 0) {
+                        document.getElementById(`product-${element.id_articulo}`).setAttribute("style","background-color:aquamarine")
+                    }
+                    totalQuantityItems(cart)
+                })
+                
+                const deleteProduct = document.getElementById(`delProduct-${element.id_articulo}`)
+    
+                deleteProduct.addEventListener('click', (e) => {
+                    e.preventDefault
+                    const prod = deleteInCart(element)
+                    console.log('cart',cart)
+                    console.log('producto',prod)
+                    if (prod.quantity == 0) {
+                        document.getElementById(`product-${element.id_articulo}`).removeAttribute("style")
+                    }
+                    totalQuantityItems(cart)
+                })
+            })
+        }
+    })
 
 
-
-async function loadProds(listProd) {
-    let htmlProd = ''
-    const tableList = await fetch('../views/partials/table.ejs').then(res => res.text())
-    if (listProd.length === 0) {
-        htmlProd = `<h4>No se encontraron productos.</h4>`
-    }else{
-        htmlProd = ejs.render(tableList, {listProd})
-    }   
-    if(document.getElementById('tabla')){
-        document.getElementById('tabla').innerHTML = htmlProd;
-    }
 
     //sumar y restar en index
-    if(listProd) {
-        listProd.forEach(element => {
-            const addProduct = document.getElementById(`addProduct-${element.id_articulo}`)
+    
 
-            addProduct.addEventListener('click', (e) => {
-                e.preventDefault
-                const product = addToCart(element)
-                console.log('cart',cart)
-                console.log('producto',product)
-                if (product.quantity > 0) {
-                    document.getElementById(`product-${element.id_articulo}`).setAttribute("style","background-color:aquamarine")
-                }
-                totalQuantityItems(cart)
-            })
-            
-            const deleteProduct = document.getElementById(`delProduct-${element.id_articulo}`)
-
-            deleteProduct.addEventListener('click', (e) => {
-                e.preventDefault
-                const prod = deleteInCart(element)
-                console.log('cart',cart)
-                console.log('producto',prod)
-                if (prod.quantity == 0) {
-                    document.getElementById(`product-${element.id_articulo}`).removeAttribute("style")
-                }
-                totalQuantityItems(cart)
-            })
-        })
-    }
-};
 
 if (document.getElementById('preBuy')) {
     document.getElementById('preBuy').addEventListener('click', (e) => {
@@ -66,7 +61,7 @@ if (document.getElementById('preBuy')) {
                 },
                 body: JSON.stringify(cart)
             })
-            window.location = 'http://localhost:8080/api/cart';
+            window.location = 'http://localhost:8080/carrito';
         } else {
             console.log('Cart vacio.')
         }
@@ -106,44 +101,4 @@ function totalQuantityItems (cart) {
         document.getElementById('quantity').innerHTML = ''
     }
 }
-
-
-socket.on('messages', function(data) { render(data); });
-
-function render(data) {
-    const html = data.chatDenormalized.mensajes.map((elem) => {
-        return(`
-            <div class="message">
-                <span class="user">${elem.nombre}</span>
-                <span class="time">${elem.date}</span>
-                <span class="text">${elem.text}</span>
-            </div>
-            `)
-    }).join(" ");
-    const porcentajeCompresion = `<h4 style="color:blue" >Centro de Mensajes(compresion %${data.compr}) </h4>`
-    document.getElementById('messages').innerHTML = html;
-    document.getElementById('compresion').innerHTML = porcentajeCompresion
-}
-
-document.getElementById('formChat').addEventListener('submit', (e) => {
-    e.preventDefault()
-    agregarMensaje()
-})
-
-function agregarMensaje() {
-    const nuevoMensaje = {
-        // author:{
-        //     email: document.getElementById('email').value,
-        //     nombre: document.getElementById('nombre').value,
-        //     apellido: document.getElementById('apellido').value,
-        //     edad: document.getElementById('edad').value,
-        //     alias: document.getElementById('alias').value,
-        //     avatar: document.getElementById('avatar').value,
-        // },
-        nombre: document.getElementById('user').innerHTML,
-        text: document.getElementById('textoMensaje').value,
-    }
-    socket.emit("messegesNew",nuevoMensaje)
-}
-
 

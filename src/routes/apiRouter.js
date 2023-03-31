@@ -1,7 +1,9 @@
 const { Router } = require("express");
 const router = Router();
-const {controllerCreateCart} = require('../controllers/controllerCartProducts')
+const {controllerCreateCart, controllerGetAPICart,controllerDeleteAPICart } = require('../controllers/controllerCartProducts')
 
 router.post("/", controllerCreateCart);
+router.get("/", controllerGetAPICart)
+router.delete("/", controllerDeleteAPICart)
 
 module.exports = router;

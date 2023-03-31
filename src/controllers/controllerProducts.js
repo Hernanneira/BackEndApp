@@ -47,7 +47,12 @@ const getNewProduct = async (req, res, next) =>{
     res.render('newProduct.ejs',{ nombre: req.session.token.userName.username}) 
 }
 
+const getAllProducts = async (req, res, next) => {
+    const listProd = await obtenerDatos()
+    res.json(listProd)
+}
 
 
 
-module.exports = {getIndexProducts, getCategory, postNewProduct, putEditProduct, delProduct, getNewProduct, getById}
+
+module.exports = {getIndexProducts, getCategory, postNewProduct, putEditProduct, delProduct, getNewProduct, getById, getAllProducts}

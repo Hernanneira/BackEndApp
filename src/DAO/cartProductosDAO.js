@@ -34,7 +34,7 @@ class Pruduct {
     try {
       const content = await this.cartProductosDAO.find({ user: user });
       if (content.cart == []) {
-        return { error: "cart no encontrado" };
+        return [];
       } else {
         return content;
       }

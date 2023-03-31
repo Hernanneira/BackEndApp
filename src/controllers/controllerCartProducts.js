@@ -5,6 +5,7 @@ const {
   obtenerCart,
   crearCart,
   enviarCart,
+  deleteCart
 } = require("../services/servicesCart");
 
 const controllerCreateCart = async (req, res, next) => {
@@ -55,8 +56,42 @@ const controllerGetCart = async (req, res, next) => {
   }
 };
 
+const controllerGetAPICart = async (req, res, next) => {
+  try {
+    logger.info(
+      `Se intentó acceder a ${req.baseUrl} con método ${req.method} exitosamente`
+    );
+    const cartProductsUser = await obtenerCart(req.session.token.userName.username);
+    if (cartProductsUser) {
+      const onlyCart = cartProductsUser.find(Element => Element.cart)
+      res.json(onlyCart.cart)
+    }else{
+      res.json([])
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Hubo un error en el servidor" });
+  }
+};
+const controllerDeleteAPICart = async (req, res, next) => {
+  try {
+    logger.info(
+      `Se intentó acceder a ${req.baseUrl} con método ${req.method} exitosamente`
+    );
+    const cartProductsUser = await deleteCart(req.session.token.userName.username);
+    res.json([])
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Hubo un error en el servidor" });
+  }
+};
+controllerDeleteAPICart
+
+
 module.exports = {
   controllerCreateCart,
   controllerSendCart,
   controllerGetCart,
+  controllerGetAPICart,
+  controllerDeleteAPICart
 };

@@ -20,7 +20,7 @@ async function crearDato(newArticulo) {
 }
 
 async function filtrarId(id) {
-  const content = await productosDAO.obtenerDatoId(id);
+  const content = await productosDAO.obtenerDatoId(parseInt(id));
   if(content.length !== 0) {
     return content
   }else {

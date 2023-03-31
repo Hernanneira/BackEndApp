@@ -1,239 +1,90 @@
-const socket = io.connect();
 let cart = []
-let user = ''
 
-if (document.getElementById('user')) {
-    console.log(document.getElementById('user').innerHTML)
-    const userName = document.getElementById('user').innerHTML
-    user = userName
-    socket.emit("user", user );
-}
+let output = document.getElementById('trCartTable')
 
-socket.on("cart", products => {
-    loadCartProds(products)
-});
-
-async function loadCartProds(cartUser) {
-    let htmlProd = ''
-    if (cartUser.length === 0) {
-        htmlProd = `<h4>No se encontraron productos.</h4>`
-    }else{
-        const cartOnly = cartUser.find(element => element.cart)
-        const cartProducts = cartOnly.cart
-        cart = cartProducts
-        console.log(cartProducts)
-        cartProducts.forEach(prod => {
-                return  htmlProd += 
-                    `<tr>
-                        <td> ${prod.id_articulo}</td>
-                        <td> ${prod.title}  </td>
-                        <td>  ${prod.price}  </td>
-                        <td> <img src=" ${prod.thumbnail}" alt=" ${prod.title} " width="25"/> </td>
-                        <td> <button class="btn btn-outline-success" id="addProduct-${prod.id_articulo}">+</button> <button class="btn btn-outline-danger" id="delProduct-${prod.id_articulo}">-</button></td>
-                        <td>  ${prod.quantity}  </td>
-                    </tr>`
-        })
-    }
-
-    if(document.getElementById('trCartTable')){
-        document.getElementById('trCartTable').innerHTML = htmlProd;
-    }
-
-    if(cart) {
-        cart.forEach(element => {
-            const addProduct = document.getElementById(`addProduct-${element.id_articulo}`)
-
-            addProduct.addEventListener('click', (e) => {
-                e.preventDefault
-                console.log('add')
-                addToCart(element)
-                console.log('user', user)
-                console.log('cart',cart)
-                socket.emit("renderCart", user, cart)
-            })
-            
-            const deleteProduct = document.getElementById(`delProduct-${element.id_articulo}`)
-
-            deleteProduct.addEventListener('click', (e) => {
-                e.preventDefault
-                console.log('del')
-                deleteInCart(element)
-                console.log('cart',cart)
-                console.log('user',user)
-                socket.emit("renderCart", user, cart)
-            })
-        })
-    }
-}
-//delete Cart
-if (document.getElementById('deleteAll')) {
-    document.getElementById('deleteAll').addEventListener('click', (e) => {
-        e.preventDefault
-        cart = []
-        socket.emit("renderCart", user, cart)
-    })
-}
-
-//funcion add y del repetida con main.js 
-function addToCart (prod) {
-    let cantidadServicio = cart.find(carrito => carrito.id_articulo === prod.id_articulo)
-    if (cantidadServicio) {
-        cantidadServicio.quantity++
-        console.log('cantidadServicio',cantidadServicio)
-    } else {
-        prod.quantity = 1
-        console.log('prod.quantity',prod.quantity)
-        cart.push(prod)
-    }
-    return prod
-}
-
-function deleteInCart (prod) {
-    let cantidadServicio = cart.find(carrito => carrito.id_articulo === prod.id_articulo)
-    let indice = cart.indexOf(cantidadServicio)
-    if (cantidadServicio.quantity == 1){
-        cantidadServicio.quantity--
-        cart.splice(indice, 1)
-    }
-    if (cantidadServicio.quantity > 1) {
-        cantidadServicio.quantity--
-        console.log('cantidadServicio',cantidadServicio.quantity)
-    }
-    return prod
-}
-
-if (document.getElementById('buy')) {
-    document.getElementById('buy').addEventListener('click', (e) => {
-        e.preventDefault
-        console.log('buy')
+fetch('http://localhost:8080/api/v1/cart')
+    .then(response => response.json())
+    .then(data =>{
+        cart = data
         console.log(cart)
-        fetch('http://localhost:8080/api/cart', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(cart)
-        })
-    })
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// let cart = [];
-
-// async function getCart () {
-//     fetch('http://localhost:8080/api/v1/cart')
-//     .then(response => response.json())
-//     .then((data) => {
-//         cart.push(...data)
-//         for( let i = 1;  i <= cart.length  ; i++) {
-//             cart.forEach(element => {
-//                 const addProduct = document.getElementById(`addProduct-${i}`)
-//                 addProduct.addEventListener('click', (e) => {
-//                     console.log('add')
-//                     e.preventDefault
-//                     const product = addToCart(element)
-//                     console.log('cart',cart)
-//                     console.log('producto',product)
-//                     getCart()
-//                 })
-                
-//                 const deleteProduct = document.getElementById(`delProduct-${i}`)
-        
-//                 deleteProduct.addEventListener('click', (e) => {
-//                     e.preventDefault
-//                     const prod = deleteInCart(element)
-//                     console.log('cart',cart)
-//                     console.log('producto',prod)
-//                     getCart()
-//                 })
-//             })
-//         }
-//         function addToCart (prod) {
-//         let cantidadServicio = cart.find(carrito => carrito.id_articulo === prod.id_articulo)
-//         if (cantidadServicio) {
-//             cantidadServicio.quantity++
-//             console.log('cantidadServicio',cantidadServicio)
-//         } else {
-//             prod.quantity = 1
-//             console.log('prod.quantity',prod.quantity)
-//             cart.push(prod)
-//         }
-//         fetch('http://localhost:8080/api/v1/cart', {
-//             method: "POST",
-//             headers: {
-//                 "content-type": "application/json"
-//             },
-//             body: JSON.stringify(cart)
-//         })
-//         return prod
-//         }
-//         function deleteInCart (prod) {
-//         let cantidadServicio = cart.find(carrito => carrito.id_articulo === prod.id_articulo)
-//         let indice = cart.indexOf(cantidadServicio)
-//         if (cantidadServicio.quantity == 1){
-//             cantidadServicio.quantity--
-//             cart.splice(indice, 1)
-//         }
-//         if (cantidadServicio.quantity > 1) {
-//             cantidadServicio.quantity--
-//             console.log('cantidadServicio',cantidadServicio.quantity)
-//         }
-//         fetch('http://localhost:8080/api/v1/cart', {
-//                 method: "POST",
-//                 headers: {
-//                     "content-type": "application/json"
-//                 },
-//                 body: JSON.stringify(cart)
-//             })
-//         return prod
-//         }
-//     })
-//     // .catch(error => console.error(error))
-// }
-
-// getCart()
-
-
-
-
- //   })
-
-
-
+        if(cart.length > 0) {
+            cart.forEach(element => {
+            console.log("estamos")
+            output.innerHTML += `
+            <tr>
+                <td> ${element.id_articulo}</td>
+                <td> ${element.title}  </td>
+                <td>  ${element.price}  </td>
+                <td> <img src=" ${element.thumbnail}" alt=" ${element.title} " width="25"/> </td>
+                <td> <button class="btn btn-outline-success" id="addProduct-${element.id_articulo}">+</button> <button class="btn btn-outline-danger" id="delProduct-${element.id_articulo}">-</button></td>
+                <td>  ${element.quantity}  </td>
+            </tr>`
+            })
+            cart.forEach(element => {
+                const addProduct = document.getElementById(`addProduct-${element.id_articulo}`)
     
-// // }
+                addProduct.addEventListener('click', (e) => {
+                    e.preventDefault
+                    const product = addToCart(element)
+                    console.log('cart',cart)
+                    console.log('producto',product)
+                    if (product.quantity > 0) {
+                        document.getElementById(`product-${element.id_articulo}`).setAttribute("style","background-color:aquamarine")
+                    }
+                    totalQuantityItems(cart)
+                })
+                
+                const deleteProduct = document.getElementById(`delProduct-${element.id_articulo}`)
+    
+                deleteProduct.addEventListener('click', (e) => {
+                    e.preventDefault
+                    const prod = deleteInCart(element)
+                    console.log('cart',cart)
+                    console.log('producto',prod)
+                    if (prod.quantity == 0) {
+                        document.getElementById(`product-${element.id_articulo}`).removeAttribute("style")
+                    }
+                    totalQuantityItems(cart)
+                })
+            })
+        }
+    })
 
+    function addToCart (prod) {
+        let cantidadServicio = cart.find(carrito => carrito.id_articulo === prod.id_articulo)
+        if (cantidadServicio) {
+            cantidadServicio.quantity++
+            console.log('cantidadServicio',cantidadServicio)
+        } else {
+            prod.quantity = 1
+            console.log('prod.quantity',prod.quantity)
+            cart.push(prod)
+        }
+        return prod
+    }
+    
+    function deleteInCart (prod) {
+        let cantidadServicio = cart.find(carrito => carrito.id_articulo === prod.id_articulo)
+        let indice = cart.indexOf(cantidadServicio)
+        if (cantidadServicio.quantity == 1){
+            cantidadServicio.quantity--
+            cart.splice(indice, 1)
+        }
+        if (cantidadServicio.quantity > 1) {
+            cantidadServicio.quantity--
+            console.log('cantidadServicio',cantidadServicio.quantity)
+        }
+        return prod
+    }
+
+    if (document.getElementById('deleteAll')) {
+        document.getElementById('deleteAll').addEventListener('click', (e) => {
+            e.preventDefault
+            cart = []
+            fetch('http://localhost:8080/api/v1/cart', {
+            method: 'DELETE',
+            })
+            .then(res => res.json()) 
+            .then(res => console.log(res))
+        })
+    }

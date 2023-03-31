@@ -35,8 +35,14 @@ async function enviarCart(cartProductsUser) {
   }
 }
 
+async function deleteCart(user) {
+  return await cartProductosDAO.deleteAll(user);
+}
+
+
 module.exports = {
   obtenerCart,
   crearCart,
   enviarCart,
+  deleteCart
 };
