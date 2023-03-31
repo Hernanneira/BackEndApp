@@ -1,3 +1,4 @@
+const { connect } = require("mongoose");
 const productosDAO = require("../DAO/productsDAO");
 
 async function obtenerDatos() {
@@ -19,11 +20,21 @@ async function crearDato(newArticulo) {
 }
 
 async function filtrarId(id) {
-  return await productosDAO.obtenerDatoId(id);
+  const content = await productosDAO.obtenerDatoId(id);
+  if(content.length !== 0) {
+    return content
+  }else {
+    return []
+  }
 }
 
 async function filtrarCategoria(categoria) {
-  return await productosDAO.categoria(categoria);
+  const content = await productosDAO.categoria(categoria);
+  if(content.length !== 0) {
+    return content
+  }else {
+    return []
+  }
 }
 
 async function updateDato(articulo) {

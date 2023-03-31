@@ -6,7 +6,6 @@ routeProducts.get('/', getIndexProducts )
 
 //nico como hago esto, se choca logica
 routeProducts.get('/:categoria', getCategory)
-// routeProducts.get('/:id', getById)
-
+routeProducts.get('/id/:id', getById)
 
 module.exports = routeProducts

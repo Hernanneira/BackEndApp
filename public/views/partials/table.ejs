@@ -1,5 +1,8 @@
 <h1>Productos de Catalogo</h1>
 <div class="entry">
+    <% if (listProd.length == 0) { %>
+        <h3>No se encontraron productos</h3>
+    <% } else { %>
         <table class="table">
             <thead>
                 <tr>
@@ -11,8 +14,8 @@
                     <th scope="col">Agregar/Eliminar al Carrito</th>
                 </tr>
             </thead>
-            <tbody id="trTable">
-                <% listProd.forEach(prod => { %>
+            <%listProd.forEach(prod => { %>
+                <tbody id="trTable">
                     <tr id="product-<%= prod.id_articulo%>">
                         <td> <%= prod.id_articulo %> </td>
                         <td> <%= prod.title %> </td>
@@ -21,7 +24,9 @@
                         <td> <img src="<%= prod.thumbnail %>" alt="<%= prod.title %>" width="25"> </td>
                         <td> <button class="btn btn-outline-success" id="addProduct-<%= prod.id_articulo%>">+</button> <button class="btn btn-outline-danger" id="delProduct-<%= prod.id_articulo%>">-</button></td>
                     </tr>
-                <% }) %>
-            </tbody>
+                </tbody>
+            <% }) %>
         </table>
+    <button class="btn btn-outline-success" id="preBuy" >Añadir al carrito</button> <p id="quantity"></p>
+    <% } %>
 </div>
