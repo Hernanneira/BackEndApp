@@ -1,48 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="icon" href="data:,">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link rel="icon" href="data:," />
     <script src="/socket.io/socket.io.js"></script>
-    <script>src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js"</script>
+    <script>
+      src =
+        "https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js";
+    </script>
     <title>Document</title>
-</head>
-<body>
-    <header>
-        <%- include('../partials/navbar'); %>
-    </header>
-    <main class="container bg-light ">
-        <h1>Tu Carrito</h1>
-        <p id="user"><%= user %></p>
-<div class="entry">
-            <div class="col">
-                <button class="btn btn-outline-success" onclick="location.href='/'">inicio</button>
-            </div>
-                <table class="table" id="cartTable">
-                    <thead>
-                        <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Imagen</th>
-                        <th scope="col">Agregar/Eliminar del Carrito</th>
-                        <th scope="col">Cantidad</th>
-                        </tr>
-                    </thead>
-                    <tbody id="trCartTable" >
-                    </tbody>
-                </table>
-                <div class="col">
-                    <button class="btn btn-outline-success" id="buy" >Finalizar Compra</button>
-                    <button class="btn btn-outline-success" id="deleteAll" >Borrar Todo</button>
-                </div>
-</div>
+  </head>
+  <body>
+    <header><%- include('../partials/navbar'); %></header>
+    <main class="container bg-light">
+      <h1>Tu Carrito</h1>
+      <p id="user"><%= user %></p>
+      <div class="entry">
+        <div class="col">
+          <button class="btn btn-outline-success" onclick="location.href='/'">
+            inicio
+          </button>
+        </div>
+        <div id="cart">
+            <table class="table" id="cartTable">
+                <tbody id="trCartTable">
+                </tbody>
+            </table>
+              <div class="col" >
+                <button class="btn btn-outline-success" id="buy">
+                  Finalizar Compra
+                </button>
+                <button class="btn btn-outline-success" id="deleteAll">
+                  Borrar Todo
+                </button>
+              </div>
+        </div>
+
+      </div>
     </main>
-</body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js"></script>
-<script src="../../js/cart.js"></script>
+  </body>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js"></script>
+  <script src="../../js/cart.js"></script>
 </html>

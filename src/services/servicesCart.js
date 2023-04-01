@@ -19,6 +19,15 @@ async function crearCart(cartUser) {
   }
 }
 
+async function updateCart(cartUser) {
+  const cart = await obtenerCart(cartUser.user);
+  console.log(cart);
+  if (cart.length !== 0) {
+    const content = await cartProductosDAO.update(cartUser.user, cartUser.cart);
+    return content;
+  }
+}
+
 async function enviarCart(cartProductsUser) {
   if (cartProductsUser.length !== 0) {
     const cartProductsAA = cartProductsUser.find((element) => element.cart);
@@ -44,5 +53,6 @@ module.exports = {
   obtenerCart,
   crearCart,
   enviarCart,
-  deleteCart
+  deleteCart,
+  updateCart
 };

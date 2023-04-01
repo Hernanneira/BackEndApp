@@ -5,7 +5,8 @@ const {
   obtenerCart,
   crearCart,
   enviarCart,
-  deleteCart
+  deleteCart,
+  updateCart
 } = require("../services/servicesCart");
 
 const controllerCreateCart = async (req, res, next) => {
@@ -64,7 +65,11 @@ const controllerGetAPICart = async (req, res, next) => {
     const cartProductsUser = await obtenerCart(req.session.token.userName.username);
     if (cartProductsUser) {
       const onlyCart = cartProductsUser.find(Element => Element.cart)
-      res.json(onlyCart.cart)
+      if(onlyCart){
+        res.json(onlyCart.cart)
+      }else{
+        res.json([])
+      }
     }else{
       res.json([])
     }
@@ -85,7 +90,21 @@ const controllerDeleteAPICart = async (req, res, next) => {
     res.status(500).json({ error: "Hubo un error en el servidor" });
   }
 };
-controllerDeleteAPICart
+const controllerUpdateCart = async (req, res, next) => {
+  logger.info(
+    `Se accedio a ${req.baseUrl} con método ${req.method} exitosamente`
+  );
+  const cartProductos = req.body;
+  const cartUser = {
+    cart: cartProductos,
+    user: req.session.token.userName.username,
+  };
+  const cart = await updateCart(cartUser);
+
+  cart
+    ? res.status(200).json({ succes: `El carrito se creo con exito ${cart}` })
+    : res.status(500).json({ error: "Hubo un error en el servidor" });
+};
 
 
 module.exports = {
@@ -93,5 +112,6 @@ module.exports = {
   controllerSendCart,
   controllerGetCart,
   controllerGetAPICart,
-  controllerDeleteAPICart
+  controllerDeleteAPICart,
+  controllerUpdateCart
 };
