@@ -4,7 +4,7 @@ dotenv.config();
 const nodemailer = require("nodemailer");
 
  function sendNewBuyEmail(user, cartProducts) {
-
+  
   if(cartProducts) {
 
     let transporter = nodemailer.createTransport({

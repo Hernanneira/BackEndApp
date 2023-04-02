@@ -50,7 +50,17 @@ class Users {
             return(error)
         }
     }
-}
+
+    async getAddress(email) {
+        try {
+            const content = await this.UsersDAO.find({"email": email})
+            const dirUser = content.find((element) => element.direccion)
+            return dirUser.direccion
+        } catch (error) {
+            return(error)
+        }
+    }
+    };
 
 const UsersDAO = new Users()
 

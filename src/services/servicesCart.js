@@ -8,10 +8,9 @@ async function obtenerCart(user) {
 }
 
 async function crearCart(cartUser) {
-  const cart = await obtenerCart(cartUser.user);
-  console.log(cart);
+  const cart = await obtenerCart(cartUser.email);
   if (cart.length !== 0) {
-    const content = await cartProductosDAO.update(cartUser.user, cartUser.cart);
+    const content = await cartProductosDAO.update(cartUser.email, cartUser.cart);
     return content;
   } else {
     const content = await cartProductosDAO.createCart(cartUser);
@@ -20,10 +19,10 @@ async function crearCart(cartUser) {
 }
 
 async function updateCart(cartUser) {
-  const cart = await obtenerCart(cartUser.user);
+  const cart = await obtenerCart(cartUser.email);
   console.log(cart);
   if (cart.length !== 0) {
-    const content = await cartProductosDAO.update(cartUser.user, cartUser.cart);
+    const content = await cartProductosDAO.update(cartUser.email, cartUser.cart);
     return content;
   }
 }

@@ -12,11 +12,24 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="alert alert-primary">
-            Hasta luego, <%= nombre %>!
-        </h1>
-    </div>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <div class="card">
+              <div class="card-header bg-danger text-white">
+                <h1 class="text-center">¡Adiós <%= nombre %>!</h1>
+              </div>
+              <div class="card-body">
+                <p class="text-center">Has cerrado sesión correctamente.</p>
+                <!-- Agregamos el botón de redireccionamiento -->
+                <div class="d-grid gap-2 col-6 mx-auto">
+                  <a href="/" class="btn btn-primary">Volver a la página principal</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     <script src="https://cdn.jsdelivr.net/npm/ejs@3.1.6/ejs.min.js"></script>
 </body>
 

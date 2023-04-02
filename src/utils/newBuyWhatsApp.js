@@ -13,7 +13,7 @@ const client = twilio(accountSid, authToken);
 let txt = ""
   cartProducts.forEach(iterarCarrito)
   function iterarCarrito(value, index, array) {
-    txt += `id_articulo: ${value.id_articulo}\nArticulo: ${value.title} \nPrecio: ${value.price} \nFoto: ${value.thumbnail}`;
+    txt += `id_articulo: ${value.id_articulo}\nArticulo: ${value.title} \nPrecio: ${value.price} \n`;
   };
 
 const from = process.env.TWILIO_WHATSAPPPHONE_NUMBER;

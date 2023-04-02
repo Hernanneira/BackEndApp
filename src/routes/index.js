@@ -11,6 +11,7 @@ const routeCart =require('./cartRoute')
 const passport = require('passport');
 const routerAPI = require('./apiRouter')
 const routerChat = require('./chatRouter')
+const routerAPIOrdenes = require('./ordenesRoute')
 const sessionDBConnection = require('../db/sessionMongoAtlasDBConnection');
 const {loginError} = require('../controllers/controllerLogin')
 
@@ -27,6 +28,7 @@ router.use('/nuevo',isAuth, routeNewProduct)
 router.use('/chat',isAuth, routerChat)
 router.use('/carrito',isAuth, routeCart)
 router.use('/api/v1/cart', routerAPI )
+router.use('/ordenes',isAuth, routerAPIOrdenes )
 router.use('/logout', routeLogout)
 router.get("/login-error", loginError);
 

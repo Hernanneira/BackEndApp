@@ -8,6 +8,7 @@ const {
   deleteCart,
   updateCart
 } = require("../services/servicesCart");
+const UsersDAO = require('../DAO/usersDAO')
 
 const controllerCreateCart = async (req, res, next) => {
   logger.info(
@@ -16,7 +17,9 @@ const controllerCreateCart = async (req, res, next) => {
   const cartProductos = req.body;
   const cartUser = {
     cart: cartProductos,
-    user: req.session.token.userName.username,
+    email: req.session.token.userName.email,
+    date: new Date().toLocaleString(),
+    address: await UsersDAO.getAddress(req.session.token.userName.email)
   };
   const cart = await crearCart(cartUser);
 
@@ -30,7 +33,7 @@ const controllerSendCart = async (req, res, next) => {
     `Se accedio a ${req.baseUrl} con método ${req.method} exitosamente`
   );
   try {
-    const cartProductsUser = await obtenerCart(req.session.token.userName.username);
+    const cartProductsUser = await obtenerCart(req.session.token.userName.email);
     console.log(cartProductsUser);
     const sendedCart = await enviarCart(cartProductsUser);
     if (sendedCart.length !== 0) {
@@ -50,7 +53,7 @@ const controllerGetCart = async (req, res, next) => {
     logger.info(
       `Se intentó acceder a ${req.baseUrl} con método ${req.method} exitosamente`
     );
-    res.render("cart.ejs", { user: req.session.token.userName.username });
+    res.render("cart.ejs", { user: req.session.token.userName.username, direccion : await UsersDAO.getAddress(req.session.token.userName.email)});
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Hubo un error en el servidor" });
@@ -62,7 +65,7 @@ const controllerGetAPICart = async (req, res, next) => {
     logger.info(
       `Se intentó acceder a ${req.baseUrl} con método ${req.method} exitosamente`
     );
-    const cartProductsUser = await obtenerCart(req.session.token.userName.username);
+    const cartProductsUser = await obtenerCart(req.session.token.userName.email);
     if (cartProductsUser) {
       const onlyCart = cartProductsUser.find(Element => Element.cart)
       if(onlyCart){
@@ -83,7 +86,7 @@ const controllerDeleteAPICart = async (req, res, next) => {
     logger.info(
       `Se intentó acceder a ${req.baseUrl} con método ${req.method} exitosamente`
     );
-    const cartProductsUser = await deleteCart(req.session.token.userName.username);
+    const cartProductsUser = await deleteCart(req.session.token.userName.email);
     res.json([])
   } catch (err) {
     console.log(err);
@@ -97,7 +100,7 @@ const controllerUpdateCart = async (req, res, next) => {
   const cartProductos = req.body;
   const cartUser = {
     cart: cartProductos,
-    user: req.session.token.userName.username,
+    email: req.session.token.userName.email,
   };
   const cart = await updateCart(cartUser);
 

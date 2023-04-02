@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const mongoose = require("mongoose");
 
-console.log("db mongoose productos INICIADO");
+console.log("db mongoose Cartproductos INICIADO");
 
 const mongooseProductos = mongoose.createConnection(
   `mongodb+srv://${process.env.MONGO_ATLAS_USER}:${process.env.MONGO_ATLAS_PASS}@${process.env.MONGO_ATLAS_HOST}/?retryWrites=true&w=majority`,
@@ -21,6 +21,7 @@ class Pruduct {
   );
 
   async createCart(cartUser) {
+    console.log("DAO",cartUser)
     try {
       const content = await this.cartProductosDAO.create(cartUser);
       return content;
@@ -30,9 +31,9 @@ class Pruduct {
     }
   }
 
-  async getCart(user) {
+  async getCart(email) {
     try {
-      const content = await this.cartProductosDAO.find({ user: user });
+      const content = await this.cartProductosDAO.find({ email: email });
       if (content.cart == []) {
         return [];
       } else {
@@ -44,21 +45,21 @@ class Pruduct {
     }
   }
 
-  async update(user, cart) {
+  async update(email, cart) {
     try {
       await this.cartProductosDAO.updateOne(
-        { user: user },
+        { email: email },
         { $set: { cart: cart } }
       );
-      return this.getCart(user);
+      return this.getCart(email);
     } catch (error) {
       return error;
     }
   }
 
-  async deleteAll(user) {
+  async deleteAll(email) {
     try {
-      await this.cartProductosDAO.deleteOne({ user: user });
+      await this.cartProductosDAO.deleteOne({ email: email });
       return [];
     } catch (error) {
       console.log(error);
