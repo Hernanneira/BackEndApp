@@ -5,7 +5,11 @@ let quantityCart = '';
 //productos
 
 
-fetch('http://localhost:8080/productos/api/v1')
+fetch('http://localhost:8080/productos/api/v1',{
+    method: 'GET',
+    headers: new Headers({ 'Content-type': 'application/json'}),
+    mode: 'no-cors'
+})
     .then(response => response.json())
     .then(data =>{
         products = data

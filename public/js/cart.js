@@ -7,7 +7,11 @@ const nonCart = document.getElementById(`cart`);
 const direccion = document.getElementById("direccion");
 
 const render = () => {
-  fetch("http://localhost:8080/api/v1/cart")
+  fetch("http://localhost:8080/api/v1/cart",{
+    method: 'GET',
+    headers: new Headers({ 'Content-type': 'application/json'}),
+    mode: 'no-cors'
+})
     .then((response) => response.json())
     .then((data) => {
       cart = data;
