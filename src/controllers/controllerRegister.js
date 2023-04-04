@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const UsersDAO = require('../DAO/usersDAO')
-const passport = require('passport');
 const sendNewRegisterEmail = require('../utils/newRegisterEmail')
+const logger = require("../utils/log4js");
 
 
 function createHash(password) {
@@ -23,35 +23,23 @@ const register = async (req,res) => {
         telefono: req.body.telefono,
         foto: req.body.foto,
     }
-
-    if(req.body.password !== req.body.passwordR){
-        return res.status(401).send({
-            success: false,
-            message: "Password is not the same",
-        })
-    }
-
     const usuariosDB = await UsersDAO.getAll()
 
     const userLogin = usuariosDB.find(u => u.email === user.email)
 
-    if (userLogin) {
-        return res.status(401).send({
-            success: false,
-            message: "email already register",
-        })
-    //nico, redirecciono o que hago
+    if (req.body.password !== req.body.passwordR) {
+        res.render("register-error", {problema : "no coinciden las contrasenas"})
+    } if (userLogin) {
+        res.render("register-error", {problema : `el correo ${userLogin.email} ya se encuentra registrado`})
+    } else {
+        try {
+            await UsersDAO.save(user)
+            await sendNewRegisterEmail(user)
+            res.redirect('./login')
+            }   catch (error) {
+            console.log('error:',error)
+            }
     }
-
-    const newUser = await UsersDAO.save(user)
-
-    try {
-        await sendNewRegisterEmail(user)
-    } catch (error) {
-        console.log('error:',error)
-    }
-
-    res.redirect('./login')
 }
 
 const getRegisterIndex =  async(req,res)=> {
