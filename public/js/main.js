@@ -49,7 +49,7 @@ if (document.getElementById('preBuy')) {
     document.getElementById('preBuy').addEventListener('click', (e) => {
         e.preventDefault
         if (cart.length !== 0){
-            fetch('http://https://backenddevhernan.onrender.com/api/v1/cart', {
+            fetch('https://backenddevhernan.onrender.com/api/v1/cart', {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
