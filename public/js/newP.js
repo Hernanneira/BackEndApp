@@ -7,7 +7,7 @@ document.getElementById('saveP').addEventListener('click', (e) => {
         category: document.getElementById('category').value
     }
 
-    fetch('http://localhost:8080/nuevo', {
+    fetch('https://backenddevhernan.onrender.com/nuevo', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
@@ -28,7 +28,7 @@ document.getElementById('editP').addEventListener('click', (e) => {
         thumbnail: document.getElementById('thumbnail').value,
         category: document.getElementById('category').value
     }
-    fetch('http://localhost:8080/nuevo', {
+    fetch('https://backenddevhernan.onrender.com/nuevo', {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
@@ -43,7 +43,7 @@ document.getElementById('delP').addEventListener('click', (e) => {
     const producto = {
         id: document.getElementById('id_articulo').value,
     }
-    fetch('http://localhost:8080/nuevo', {
+    fetch('https://backenddevhernan.onrender.com/nuevo', {
             method: "DELETE",
             headers: {
                 "content-type": "application/json"

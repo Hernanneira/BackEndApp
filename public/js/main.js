@@ -1,4 +1,3 @@
-const socket = io.connect();
 let cart = [];
 let products = []
 let quantityCart = '';
