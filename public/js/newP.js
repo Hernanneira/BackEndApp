@@ -17,7 +17,7 @@ document.getElementById('saveP').addEventListener('click', (e) => {
     .then(response => response.json())
     .then(response => console.log(response));
 
-    // window.location = 'http://localhost:8080/productos';
+    window.location = 'https://backenddevhernan.onrender.com/productos'
 })
 
 document.getElementById('editP').addEventListener('click', (e) => {
@@ -37,6 +37,7 @@ document.getElementById('editP').addEventListener('click', (e) => {
     })
     .then(response => response.json())
     .then(response => console.log(response));
+    window.location = 'https://backenddevhernan.onrender.com/productos'
 })
 
 document.getElementById('delP').addEventListener('click', (e) => {
@@ -52,4 +53,5 @@ document.getElementById('delP').addEventListener('click', (e) => {
     })
     .then(response => response.json())
     .then(response => console.log(response));
+    window.location = 'https://backenddevhernan.onrender.com/productos'
 })
