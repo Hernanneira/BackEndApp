@@ -5,7 +5,7 @@ let quantityCart = '';
 //productos
 
 
-fetch('http://localhost:8080/productos/api/v1',{
+fetch('https://backenddevhernan.onrender.com/productos/api/v1',{
     method: 'GET',
     headers: new Headers({ 'Content-type': 'application/json'}),
     mode: 'no-cors'
@@ -50,14 +50,14 @@ if (document.getElementById('preBuy')) {
     document.getElementById('preBuy').addEventListener('click', (e) => {
         e.preventDefault
         if (cart.length !== 0){
-            fetch('http://localhost:8080/api/v1/cart', {
+            fetch('http://https://backenddevhernan.onrender.com/api/v1/cart', {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
                 },
                 body: JSON.stringify(cart)
             })
-            window.location = 'http://localhost:8080/carrito';
+            window.location = 'http://https://backenddevhernan.onrender.com/carrito';
         }
     })
 }
