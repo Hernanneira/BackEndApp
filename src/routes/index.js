@@ -8,7 +8,6 @@ const routeLogin = require('./loginRoute')
 const routeRegister = require('./registerRoute')
 const routeLogout = require('./logoutRoute')
 const routeCart =require('./cartRoute')
-const passport = require('passport');
 const routerAPI = require('./apiRouter')
 const routerChat = require('./chatRouter')
 const routerAPIOrdenes = require('./ordenesRoute')
@@ -17,14 +16,10 @@ const {loginError} = require('../controllers/controllerLogin')
 
 router.use(sessionDBConnection)
 
-router.use(passport.initialize())
-
-router.use(passport.session())
-
 router.use('/login', routeLogin)
 router.use('/register', routeRegister)
-router.use('/productos',isAuth, routeProducts)
-router.use('/nuevo',isAuth, routeNewProduct)
+router.use('/productos', routeProducts)
+router.use('/nuevo', routeNewProduct)
 router.use('/chat',isAuth, routerChat)
 router.use('/carrito',isAuth, routeCart)
 router.use('/api/v1/cart', routerAPI )
@@ -37,10 +32,10 @@ router.get('/', (req, res) => {
     res.redirect('/login')
 })
 
-// router.get('*', (req, res) => {
-//     logger.warn(`Route: ${req.path} 404 Not Found Method: ${req.method} `);
-//     res.send("Sorry 🤷‍♂️ 404 Not Found");
-// });
+router.get('*', (req, res) => {
+    logger.warn(`Route: ${req.path} 404 Not Found Method: ${req.method} `);
+    res.send("Sorry 🤷‍♂️ 404 Not Found");
+});
 
 
 module.exports = router;

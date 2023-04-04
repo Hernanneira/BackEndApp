@@ -9,7 +9,6 @@ const getIndexChat = async (req, res, next) =>{
 const getEmailChat = async (req, res, next) =>{
     logger.info(`Se intentó acceder a ${req.baseUrl} con método ${req.method} exitosamente`);
     const{email} = req.params
-    console.log(email)
     res.render('chats.ejs',{ nombre: req.session.token.userName.username, email: req.session.token.userName.email}) 
 }
 

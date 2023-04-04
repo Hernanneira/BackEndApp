@@ -6,8 +6,6 @@ const nodemailer = require("nodemailer");
  function sendNewRegisterEmail(user) {
 
   if(user) {
-
-    console.log('NewUser:',user)
   
     let transporter = nodemailer.createTransport({
       host: process.env.ETHEREAL_HOST,

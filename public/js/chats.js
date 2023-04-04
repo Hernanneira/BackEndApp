@@ -6,8 +6,6 @@ socket.on('emailMensaje', data => {
 })
 
 function loadChats (data) {
-    console.log("privado")
-    console.log(data)
     const html = data.forEach((elem) => {
         return(`
             <div class="message">
@@ -24,7 +22,6 @@ function loadChats (data) {
 socket.on('messages', function(data) { render(data); });
 
 function render(data) {
-    console.log("todo")
     const html = data.chatDenormalized.mensajes.map((elem) => {
         return(`
             <div class="message">

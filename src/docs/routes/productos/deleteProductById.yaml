@@ -1,0 +1,24 @@
+paths:
+  /nuevo:
+    delete:
+      summary: Borra un producto por su id
+      description: Elimina un elemento nuevo por su identificador
+      tags:
+        - Productos
+      requestBody:
+        description: ID del elemento a eliminar
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+              required:
+                - id
+      responses:
+        "204":
+          description: Producto eliminado correctamente
+        "404":
+          description: Producto no encontrado

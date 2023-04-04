@@ -1,0 +1,21 @@
+paths:
+  /nuevo:
+    put:
+      summary: Actualiza un producto
+      tags:
+        - Productos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/requestBodies/UpdateProduct'
+      responses:
+        "200":
+          description: El producto actualizo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        "404":
+          description: Produco no encontrado

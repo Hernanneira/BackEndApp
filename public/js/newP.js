@@ -28,7 +28,6 @@ document.getElementById('editP').addEventListener('click', (e) => {
         thumbnail: document.getElementById('thumbnail').value,
         category: document.getElementById('category').value
     }
-    console.log(producto)
     fetch('http://localhost:8080/nuevo', {
             method: "PUT",
             headers: {
@@ -44,7 +43,6 @@ document.getElementById('delP').addEventListener('click', (e) => {
     const producto = {
         id: document.getElementById('id_articulo').value,
     }
-    console.log(producto)
     fetch('http://localhost:8080/nuevo', {
             method: "DELETE",
             headers: {

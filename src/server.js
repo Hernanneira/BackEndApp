@@ -9,8 +9,9 @@ const router = require('./routes/index')
 const path = require('path');
 const { configureSocketMessage } = require('./routes/ws/messages');
 const { configureSocketPrivateMessage } = require('./routes/ws/privateMessages');
-const { obtenerMensajes, nuevoMensaje, obtenerEmailMensajes } = require('./services/servicesMessages');
-const {getIndexChat} = require('./controllers/controllerChat')
+const swaggerUi = require('swagger-ui-express');
+
+const { swaggerSpecs } = require('./config/swaggerSpecs');
 
 const args = parseArgs(process.argv.slice(2));
 const app = express();
@@ -29,32 +30,8 @@ app.set('views', path.join(__dirname, '../public/views/pages'));
 
 app.use(express.static('public'))
 
-// webSocket
-async function handleSendEmailMessages (email) {
-    try {
-      return await obtenerEmailMensajes(email)
-    } catch (error) {
-      console.error(error.message)
-      return []
-    }
-  }
-  async function handleSendMessages () {
-      try {
-        return await obtenerMensajes()
-      } catch (error) {
-        console.error(error.message)
-        return []
-      }
-  }
-
-
 io.on("connection", async (socket) => {
     console.log("Un cliente se ha conectado");
-
-//   socket.on("email", async (email) => {
-//     await nuevoMensaje(email)
-//     sockets.emit("emailMessages",);
-//   });
 
   configureSocketMessage(socket, io.sockets);
   configureSocketPrivateMessage(socket, io.sockets);
@@ -63,7 +40,7 @@ io.on("connection", async (socket) => {
 
 //CRUD
 app.use(router)
-
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 //Server CLOUSETER OR FORK
 
 // master

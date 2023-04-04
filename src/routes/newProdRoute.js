@@ -1,8 +1,9 @@
 const {Router} = require('express');
 const router = Router();
+const isAuth = require('../utils/auth');
 const {postNewProduct, getNewProduct, putEditProduct, delProduct, } = require('../controllers/controllerProducts')
 
-router.get('/', getNewProduct )
+router.get('/',isAuth, getNewProduct )
 router.post('/', postNewProduct )
 router.put('/', putEditProduct)
 router.delete('/', delProduct)

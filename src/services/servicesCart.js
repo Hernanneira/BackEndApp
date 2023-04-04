@@ -1,7 +1,4 @@
 const cartProductosDAO = require("../DAO/cartProductosDAO");
-const sendNewBuyEmail = require("../utils/newBuyEmail");
-const sendNewbuySMS = require("../utils/newBuySMS");
-const sendNewbuyWhatsApp = require("../utils/newBuyWhatsApp");
 
 async function obtenerCart(user) {
   return await cartProductosDAO.getCart(user);
@@ -20,7 +17,6 @@ async function crearCart(cartUser) {
 
 async function updateCart(cartUser) {
   const cart = await obtenerCart(cartUser.email);
-  console.log(cart);
   if (cart.length !== 0) {
     const content = await cartProductosDAO.update(cartUser.email, cartUser.cart);
     return content;
@@ -31,14 +27,6 @@ async function enviarCart(cartProductsUser) {
   if (cartProductsUser.length !== 0) {
     const cartProductsAA = cartProductsUser.find((element) => element.cart);
     const cartProducts = cartProductsAA.cart;
-    console.log("cartPr", cartProducts);
-    console.log("inicio notificaciones");
-    // sendNewBuyEmail(user,cartProducts)
-    // console.log('notificaciones EMAIL ADMIN ok')
-    // sendNewbuyWhatsApp(user,cartProducts)
-    // console.log('notificaciones WHATSAPP ADMIN ok')
-    // sendNewbuySMS(user,cartProducts)
-    // console.log('notificaciones SMS USER whats ok')
     return cartProducts;
   }
 }

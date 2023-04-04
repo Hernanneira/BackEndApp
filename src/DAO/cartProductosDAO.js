@@ -21,7 +21,6 @@ class Pruduct {
   );
 
   async createCart(cartUser) {
-    console.log("DAO",cartUser)
     try {
       const content = await this.cartProductosDAO.create(cartUser);
       return content;
@@ -40,7 +39,6 @@ class Pruduct {
         return content;
       }
     } catch (error) {
-      console.log("estamos en error");
       return error;
     }
   }
@@ -62,7 +60,6 @@ class Pruduct {
       await this.cartProductosDAO.deleteOne({ email: email });
       return [];
     } catch (error) {
-      console.log(error);
       return "no pudo eliminarse";
     }
   }

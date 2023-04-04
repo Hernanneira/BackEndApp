@@ -25,7 +25,6 @@ const register = async (req,res) => {
     }
 
     if(req.body.password !== req.body.passwordR){
-        console.log("Password is not the same")
         return res.status(401).send({
             success: false,
             message: "Password is not the same",
@@ -37,7 +36,6 @@ const register = async (req,res) => {
     const userLogin = usuariosDB.find(u => u.email === user.email)
 
     if (userLogin) {
-        console.log("email already register")
         return res.status(401).send({
             success: false,
             message: "email already register",

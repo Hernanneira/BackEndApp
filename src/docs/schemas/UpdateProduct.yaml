@@ -1,0 +1,34 @@
+# UpdateProduct
+
+components:
+  requestBodies:
+    UpdateProduct:
+      type: object
+      required:
+        - id_articulo
+        - title
+        - price
+        - thumbnail
+        - category
+      properties:
+        id_articulo:
+          type: number
+          description: el id del producto
+        title:
+          type: string
+          description: el nombre del producto.
+        price:
+          type: number
+          description: el precio del producto.
+        thumbnail:
+          type: string
+          description: la url de la foto
+        category:
+          type: string
+          description: la categoria del producto
+      example:
+        id_articulo: 1
+        title: papa
+        price: 110
+        thumbnail: https://ichef.bbci.co.uk/news/226/amz/worldservice/live/assets/images/2010/12/01/101201150427_raw_potato_bbc_226.jpg
+        category: verdura

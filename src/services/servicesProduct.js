@@ -38,12 +38,13 @@ async function filtrarCategoria(categoria) {
 }
 
 async function updateDato(articulo) {
-console.log(articulo)
-  return await productosDAO.update(articulo);
+  const content = await productosDAO.update(articulo);
+  return content
 }
 
-async function deleteDato(articulo) {
-  return await productosDAO.delete(articulo);
+async function deleteDato(id) {
+  let content = await productosDAO.deleteById(id);
+  return content
 }
 
 module.exports = {

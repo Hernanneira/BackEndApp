@@ -11,13 +11,9 @@ const sendNewbuyWhatsApp = require("../utils/newBuyWhatsApp");
         const content = await orderDAO.createOrder(newOrder);
         const contentOrderCart = content.item.cart
         const user = findUser.find((element) => element);
-        console.log("inicio notificaciones");
-        // sendNewBuyEmail(user,contentOrderCart)
-        // console.log('notificaciones EMAIL ADMIN ok')
-        // sendNewbuyWhatsApp(user,contentOrderCart)
-        // console.log('notificaciones WHATSAPP ADMIN ok')
-        // sendNewbuySMS(user,contentOrderCart)
-        // console.log('notificaciones SMS USER whats ok')
+        sendNewBuyEmail(user,contentOrderCart)
+        sendNewbuyWhatsApp(user,contentOrderCart)
+        sendNewbuySMS(user,contentOrderCart)
         return contentOrderCart;
       }
   }

@@ -59,16 +59,18 @@ class Pruduct {
 
   async update (articulo) {
     try {
-      const content = await this.productosDAO.replaceOne({"id_articulo": articulo.id_articulo}, articulo);
-      return content;
+      await this.productosDAO.replaceOne({"id_articulo": articulo.id_articulo}, articulo);
+      const content = this.productosDAO.find({"id_articulo": articulo.id_articulo});
+      return content ;
     } catch (error) {
       return error;
     }
   }
 
-  async delete (id) {
+  async deleteById (id) {
     try {
-      const content = await this.productosDAO.deleteOne({"id_articulo": id});
+      const content = await this.productosDAO.countDocuments({"id_articulo": id});
+      await this.productosDAO.deleteOne({"id_articulo": id});
       return content;
     } catch (error) {
       return error;

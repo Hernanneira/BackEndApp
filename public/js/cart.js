@@ -11,7 +11,6 @@ const render = () => {
     .then((response) => response.json())
     .then((data) => {
       cart = data;
-      console.log(cart);
       if (cart.length > 0) {
         headTable.innerHTML = `<thead>
                 <tr>
@@ -41,8 +40,6 @@ const render = () => {
           addProduct.addEventListener("click", (e) => {
             e.preventDefault;
             const product = addToCart(element);
-            console.log("cart", cart);
-            console.log("producto", product);
             render();
           });
 
@@ -53,8 +50,7 @@ const render = () => {
           deleteProduct.addEventListener("click", (e) => {
             e.preventDefault;
             const prod = deleteInCart(element);
-            console.log("cart", cart);
-            console.log("producto", prod);
+
             render();
           });
         });
@@ -65,7 +61,6 @@ const render = () => {
           );
           if (cantidad) {
             cantidad.quantity++;
-            console.log("cantidad", cantidad);
           }
           updateCart(cart);
           render();
@@ -84,7 +79,6 @@ const render = () => {
           }
           if (cantidad.quantity > 1) {
             cantidad.quantity--;
-            console.log("cantidadServicio", cantidad.quantity);
             updateCart(cart);
           }
           render();
@@ -133,7 +127,7 @@ if (document.getElementById("buy")) {
       cart,
       address: direccion.value,
     };
-    console.log(order);
+    nonCart.innerHTML = `<h3>Cargando...</h3>`
     fetch("http://localhost:8080/ordenes", {
       method: "POST",
       headers: {
@@ -144,15 +138,19 @@ if (document.getElementById("buy")) {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        fetch("http://localhost:8080/api/v1/cart", {
+      })
+      .catch((error) => console.error(error));
+      fetch("http://localhost:8080/api/v1/cart", {
           method: "DELETE",
         })
           .then((res) => res.json())
           .then((res) => {
+            cart = [];
             render();
             console.log(res);
           });
-      })
-      .catch((error) => console.error(error));
+      setTimeout(function(){
+        window.location = 'http://localhost:8080/ordenes';
+      }, 1000);
   });
 }

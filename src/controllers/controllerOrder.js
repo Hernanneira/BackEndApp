@@ -36,8 +36,6 @@ const controllerindexOrder = async (req, res, next) => {
   );
 
 const orderMade  = await getUserOrder(req.session.token.userName.email)
-console.log(orderMade )
-
 res.render('orden.ejs', {orderMade})
 };
 
