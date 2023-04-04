@@ -7,7 +7,7 @@ const nonCart = document.getElementById(`cart`);
 const direccion = document.getElementById("direccion");
 
 const render = () => {
-  fetch("http://https://backenddevhernan.onrender.com/api/v1/cart",{
+  fetch("https://backenddevhernan.onrender.com/api/v1/cart",{
     method: 'GET',
     headers: new Headers({ 'Content-type': 'application/json'}),
     mode: 'no-cors'
@@ -100,7 +100,7 @@ if (document.getElementById("deleteAll")) {
   document.getElementById("deleteAll").addEventListener("click", (e) => {
     e.preventDefault;
     cart = [];
-    fetch("http://https://backenddevhernan.onrender.com/api/v1/cart", {
+    fetch("https://backenddevhernan.onrender.com/api/v1/cart", {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -112,7 +112,7 @@ if (document.getElementById("deleteAll")) {
 }
 
 function updateCart(product) {
-  fetch(`http://https://backenddevhernan.onrender.com/api/v1/cart`, {
+  fetch(`https://backenddevhernan.onrender.com/api/v1/cart`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -132,7 +132,7 @@ if (document.getElementById("buy")) {
       address: direccion.value,
     };
     nonCart.innerHTML = `<h3>Cargando...</h3>`
-    fetch("http://https://backenddevhernan.onrender.com/ordenes", {
+    fetch("https://backenddevhernan.onrender.com/ordenes", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -144,7 +144,7 @@ if (document.getElementById("buy")) {
         console.log(data);
       })
       .catch((error) => console.error(error));
-      fetch("http://https://backenddevhernan.onrender.com/api/v1/cart", {
+      fetch("https://backenddevhernan.onrender.com/api/v1/cart", {
           method: "DELETE",
         })
           .then((res) => res.json())
@@ -154,7 +154,7 @@ if (document.getElementById("buy")) {
             console.log(res);
           });
       setTimeout(function(){
-        window.location = 'http://https://backenddevhernan.onrender.com/ordenes';
+        window.location = 'https://backenddevhernan.onrender.com/ordenes';
       }, 1000);
   });
 }
