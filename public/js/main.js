@@ -56,7 +56,7 @@ if (document.getElementById('preBuy')) {
                 },
                 body: JSON.stringify(cart)
             })
-            window.location = 'http://https://backenddevhernan.onrender.com/carrito';
+            window.location = 'https://backenddevhernan.onrender.com/carrito';
         }
     })
 }
