@@ -20,3 +20,11 @@
 [2023-04-04T02:22:19.274] [WARN] prod - Route: /favicon.ico 404 Not Found Method: GET 
 [2023-04-04T02:22:21.005] [WARN] prod - Route: /favicon.ico 404 Not Found Method: GET 
 [2023-04-04T02:22:55.023] [WARN] prod - Route: /favicon.ico 404 Not Found Method: GET 
+[2023-04-20T17:46:41.195] [WARN] prod - Route: /favicon.ico 404 Not Found Method: GET 
+[2023-04-20T17:46:50.494] [WARN] prod - Route: /favicon.ico 404 Not Found Method: GET 
+[2023-04-20T17:47:04.595] [WARN] prod - Route: /favicon.ico 404 Not Found Method: GET 
+[2023-04-20T17:50:01.275] [WARN] prod - Route: /favicon.ico 404 Not Found Method: GET 
+[2023-04-20T17:50:22.628] [WARN] prod - Route: /favicon.ico 404 Not Found Method: GET 
+[2023-04-20T18:18:22.930] [WARN] prod - Route: /favicon.ico 404 Not Found Method: GET 
+[2023-04-20T18:22:46.844] [WARN] prod - Route: /favicon.ico 404 Not Found Method: GET 
+[2023-04-20T18:47:20.523] [WARN] prod - Route: /favicon.ico 404 Not Found Method: GET 
